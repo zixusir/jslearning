@@ -1,0 +1,58 @@
+{% extends "base.html" %} {% block main %}
+<div id="content" style="width:90%; background: #f3f3f3; margin:auto;">
+    <div id="room"></div>
+    <div id="room-list"></div>
+    <div id="messages" style="height:300px; border:rgb(246, 253, 253)">here is message</div>
+    <!-- <form id="send-form"> -->
+    <div class="input-group" style="width:100%">
+        <input type="text" id="send-message" class="form-control" />
+        <div class="input-group-btn">
+            <button class="btn btn-default" id="helpBtn">
+                <span class="glyphicon glyphicon-question-sign"></span>
+            </button>
+            <button class="btn btn-default" type="submit">Send</button>
+            <!-- <input type="submit" id="send-button" style="width:10%" class="" value="send" /> -->
+        </div>
+    </div>
+    <!-- </form> -->
+</div>
+<div id="help" style="margin:auto; width:90%; display:none;">
+    <ul>
+        Chat commands:
+        <li>Change nickname:
+            <code>/nick [username]</code>
+        </li>
+        <li>Join/create room:
+            <code>/join [room name]</code>
+        </li>
+    </ul>
+</div>
+
+<script>
+    $(document).ready(() => {
+        $("#helpBtn").click(() => {
+            $("#help").fadeToggle();
+        });
+
+        let ws = new WebSocket('ws://localhost:3000/test');
+
+        // // 打开WebSocket连接后立刻发送一条消息:
+        // ws.on('open', function () {
+        //     console.log(`[CLIENT] open()`);
+        //     ws.send('Hello!');
+        // });
+        ws.onopen = () => {
+            console.log(`[CLIENT] open`);
+            ws.send('webSoket is working!');
+        };
+
+        // 响应收到的消息:
+        // ws.on('message', function (message) {
+        //     console.log(`[CLIENT] Received: ${message}`);
+        // });
+        ws.onmessage = () => {
+            console.log('this message means webSoket is working!');
+        };
+    });
+</script>
+{% endblock %}

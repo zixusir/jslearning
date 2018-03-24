@@ -1,0 +1,169 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'n',
+1 verbose cli   'latest' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.1
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readGlobalPackageData
+7 silly fetchPackageMetaData n
+8 silly fetchPackageMetaData latest
+9 silly fetchNamedPackageData n
+10 silly mapToRegistry name n
+11 silly mapToRegistry using default registry
+12 silly mapToRegistry registry https://registry.npmjs.org/
+13 silly mapToRegistry data Result {
+13 silly mapToRegistry   raw: 'n',
+13 silly mapToRegistry   scope: null,
+13 silly mapToRegistry   escapedName: 'n',
+13 silly mapToRegistry   name: 'n',
+13 silly mapToRegistry   rawSpec: '',
+13 silly mapToRegistry   spec: 'latest',
+13 silly mapToRegistry   type: 'tag' }
+14 silly mapToRegistry uri https://registry.npmjs.org/n
+15 silly fetchNamedPackageData latest
+16 silly mapToRegistry name latest
+17 silly mapToRegistry using default registry
+18 silly mapToRegistry registry https://registry.npmjs.org/
+19 silly mapToRegistry data Result {
+19 silly mapToRegistry   raw: 'latest',
+19 silly mapToRegistry   scope: null,
+19 silly mapToRegistry   escapedName: 'latest',
+19 silly mapToRegistry   name: 'latest',
+19 silly mapToRegistry   rawSpec: '',
+19 silly mapToRegistry   spec: 'latest',
+19 silly mapToRegistry   type: 'tag' }
+20 silly mapToRegistry uri https://registry.npmjs.org/latest
+21 verbose request uri https://registry.npmjs.org/n
+22 verbose request no auth needed
+23 info attempt registry request try #1 at 18:35:35
+24 verbose request id fd18d10633b3f485
+25 http request GET https://registry.npmjs.org/n
+26 verbose request uri https://registry.npmjs.org/latest
+27 verbose request no auth needed
+28 info attempt registry request try #1 at 18:35:35
+29 http request GET https://registry.npmjs.org/latest
+30 http 200 https://registry.npmjs.org/latest
+31 verbose headers { 'content-type': 'application/json; charset=UTF-8',
+31 verbose headers   server: 'UploadServer',
+31 verbose headers   'cache-control': 'max-age=300',
+31 verbose headers   'last-modified': 'Thu, 19 Feb 2015 23:48:53 GMT',
+31 verbose headers   etag: '"54e67665-1ef0"',
+31 verbose headers   'x-npm-region': 'Asia',
+31 verbose headers   'content-encoding': 'gzip',
+31 verbose headers   'content-length': '1739',
+31 verbose headers   'accept-ranges': 'bytes',
+31 verbose headers   date: 'Wed, 28 Feb 2018 10:35:37 GMT',
+31 verbose headers   via: '1.1 varnish',
+31 verbose headers   age: '13732',
+31 verbose headers   connection: 'keep-alive',
+31 verbose headers   'x-served-by': 'cache-hnd18744-HND',
+31 verbose headers   'x-cache': 'HIT',
+31 verbose headers   'x-cache-hits': '1',
+31 verbose headers   'x-timer': 'S1519814138.545786,VS0,VE0',
+31 verbose headers   vary: 'Accept-Encoding, Accept' }
+32 silly get cb [ 200,
+32 silly get   { 'content-type': 'application/json; charset=UTF-8',
+32 silly get     server: 'UploadServer',
+32 silly get     'cache-control': 'max-age=300',
+32 silly get     'last-modified': 'Thu, 19 Feb 2015 23:48:53 GMT',
+32 silly get     etag: '"54e67665-1ef0"',
+32 silly get     'x-npm-region': 'Asia',
+32 silly get     'content-encoding': 'gzip',
+32 silly get     'content-length': '1739',
+32 silly get     'accept-ranges': 'bytes',
+32 silly get     date: 'Wed, 28 Feb 2018 10:35:37 GMT',
+32 silly get     via: '1.1 varnish',
+32 silly get     age: '13732',
+32 silly get     connection: 'keep-alive',
+32 silly get     'x-served-by': 'cache-hnd18744-HND',
+32 silly get     'x-cache': 'HIT',
+32 silly get     'x-cache-hits': '1',
+32 silly get     'x-timer': 'S1519814138.545786,VS0,VE0',
+32 silly get     vary: 'Accept-Encoding, Accept' } ]
+33 verbose get saving latest to C:\Users\me\AppData\Roaming\npm-cache\registry.npmjs.org\latest\.cache.json
+34 verbose correctMkdir C:\Users\me\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+35 http 200 https://registry.npmjs.org/n
+36 verbose headers { 'content-type': 'application/json; charset=UTF-8',
+36 verbose headers   server: 'UploadServer',
+36 verbose headers   'cache-control': 'max-age=300',
+36 verbose headers   'last-modified': 'Sat, 10 Feb 2018 14:43:06 GMT',
+36 verbose headers   etag: '"5a7f04fa-11737"',
+36 verbose headers   'x-npm-region': 'Asia',
+36 verbose headers   'content-encoding': 'gzip',
+36 verbose headers   'content-length': '11943',
+36 verbose headers   'accept-ranges': 'bytes',
+36 verbose headers   date: 'Wed, 28 Feb 2018 10:35:37 GMT',
+36 verbose headers   via: '1.1 varnish',
+36 verbose headers   age: '13087',
+36 verbose headers   connection: 'keep-alive',
+36 verbose headers   'x-served-by': 'cache-hnd18746-HND',
+36 verbose headers   'x-cache': 'HIT',
+36 verbose headers   'x-cache-hits': '11',
+36 verbose headers   'x-timer': 'S1519814138.547676,VS0,VE0',
+36 verbose headers   vary: 'Accept-Encoding, Accept' }
+37 silly get cb [ 200,
+37 silly get   { 'content-type': 'application/json; charset=UTF-8',
+37 silly get     server: 'UploadServer',
+37 silly get     'cache-control': 'max-age=300',
+37 silly get     'last-modified': 'Sat, 10 Feb 2018 14:43:06 GMT',
+37 silly get     etag: '"5a7f04fa-11737"',
+37 silly get     'x-npm-region': 'Asia',
+37 silly get     'content-encoding': 'gzip',
+37 silly get     'content-length': '11943',
+37 silly get     'accept-ranges': 'bytes',
+37 silly get     date: 'Wed, 28 Feb 2018 10:35:37 GMT',
+37 silly get     via: '1.1 varnish',
+37 silly get     age: '13087',
+37 silly get     connection: 'keep-alive',
+37 silly get     'x-served-by': 'cache-hnd18746-HND',
+37 silly get     'x-cache': 'HIT',
+37 silly get     'x-cache-hits': '11',
+37 silly get     'x-timer': 'S1519814138.547676,VS0,VE0',
+37 silly get     vary: 'Accept-Encoding, Accept' } ]
+38 verbose get saving n to C:\Users\me\AppData\Roaming\npm-cache\registry.npmjs.org\n\.cache.json
+39 verbose correctMkdir C:\Users\me\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+40 silly install normalizeTree
+41 silly loadCurrentTree Finishing
+42 silly loadIdealTree Starting
+43 silly install loadIdealTree
+44 silly cloneCurrentTree Starting
+45 silly install cloneCurrentTreeToIdealTree
+46 silly cloneCurrentTree Finishing
+47 silly loadShrinkwrap Starting
+48 silly install loadShrinkwrap
+49 silly loadShrinkwrap Finishing
+50 silly loadAllDepsIntoIdealTree Starting
+51 silly install loadAllDepsIntoIdealTree
+52 silly rollbackFailedOptional Starting
+53 silly rollbackFailedOptional Finishing
+54 silly runTopLevelLifecycles Finishing
+55 silly install printInstalled
+56 verbose stack Error: Unsupported platform for n@2.1.8: wanted {"name":"n","description":"Interactively Manage All Your Node Versions","version":"2.1.8","author":{"name":"TJ Holowaychuk","email":"tj@vision-media.ca"},"homepage":"https://github.com/tj/n","bugs":{"url":"https://github.com/tj/n/issues"},"contributors":[{"name":"Travis Webb","email":"me@traviswebb.com","url":"tjw.io"},{"name":"Nimit Kalra","email":"me@nimit.io","url":"http://nimit.io"},{"name":"Troy Connor","email":"troy0820@gmail.com","url":"https://github.com/troy0820"}],"keywords":["nvm","node","version","manager","switcher","node","binary","env"],"bin":{"n":"./bin/n"},"repository":{"type":"git","url":"git://github.com/tj/n.git"},"preferGlobal":true,"os":["!win32"],"engines":{"node":"*"},"license":"MIT","gitHead":"14ab6ff01f3b673e2e29f465a00e0b29643bb8d9","_id":"n@2.1.8","_npmVersion":"5.0.3","_nodeVersion":"8.1.2","_npmUser":{"name":"troy0820","email":"troy0820@gmail.com"},"dist":{"integrity":"sha512-VN3To6jBHSdTHmv+fT00V1nBdj3MWdcOlEKBEaUtXKRqQhuN289B9Jym9P/L3rXfafAsapmh4Fcr/DUR8DGJVg==","shasum":"9b770f6ae0a93c49c64fb614625a63cc5a22d1fd","tarball":"https://registry.npmjs.org/n/-/n-2.1.8.tgz"},"maintainers":[{"name":"bat","email":"ben@benatkin.com"},{"name":"qw3rtman","email":"me@nimit.io"},{"name":"tedgaydos","email":"tedgaydos@gmail.com"},{"name":"tjholowaychuk","email":"tj@vision-media.ca"},{"name":"tjwebb","email":"me@traviswebb.com"},{"name":"troy0820","email":"troy0820@gmail.com"}],"_npmOperationalInternal":{"host":"s3://npm-registry-packages","tmp":"tmp/n-2.1.8.tgz_1498880450388_0.9696143395267427"},"directories":{},"_from":"n","_resolved":"https://registry.npmjs.org/n/-/n-2.1.8.tgz","_shasum":"9b770f6ae0a93c49c64fb614625a63cc5a22d1fd","_requested":{"raw":"n","scope":null,"escapedName":"n","name":"n","rawSpec":"","spec":"latest","type":"tag"},"_spec":"n","_where":"C:\\Users\\me\\Documents\\GitHub\\jslearning","_args":[[{"raw":"n","scope":null,"escapedName":"n","name":"n","rawSpec":"","spec":"latest","type":"tag"},"C:\\Users\\me\\Documents\\GitHub\\jslearning"]],"readme":"ERROR: No README data found!"} (current: {"os":"win32","cpu":"x64"})
+56 verbose stack     at checkPlatform (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-install-checks\index.js:45:14)
+56 verbose stack     at thenWarnEngineIssues (C:\Program Files\nodejs\node_modules\npm\lib\install\validate-args.js:41:5)
+56 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\iferr\index.js:13:50
+56 verbose stack     at checkEngine (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-install-checks\index.js:24:10)
+56 verbose stack     at module.exports.isInstallable (C:\Program Files\nodejs\node_modules\npm\lib\install\validate-args.js:38:3)
+56 verbose stack     at Array.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\bind-actor.js:15:8)
+56 verbose stack     at LOOP (C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:15:14)
+56 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\chain.js:18:7
+56 verbose stack     at checkSelf (C:\Program Files\nodejs\node_modules\npm\lib\install\validate-args.js:46:72)
+56 verbose stack     at Array.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\slide\lib\bind-actor.js:15:8)
+57 verbose pkgid n@2.1.8
+58 verbose cwd C:\Users\me\Documents\GitHub\jslearning
+59 error Windows_NT 10.0.15063
+60 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "-g" "n" "latest"
+61 error node v6.11.1
+62 error npm  v3.10.10
+63 error code EBADPLATFORM
+64 error notsup Unsupported platform for n@2.1.8: wanted {"os":"!win32","arch":"any"} (current: {"os":"win32","arch":"x64"})
+65 error notsup Valid OS:    !win32
+65 error notsup Valid Arch:  any
+65 error notsup Actual OS:   win32
+65 error notsup Actual Arch: x64
+66 verbose exit [ 1, true ]

@@ -1,0 +1,101 @@
+{% extends "base.html" %} {% block main %} {% if msg %}
+<div class="alert alert-danger" role="alert" id='alert_msg' style="width: 90%; margin: auto;">
+    {{content}}
+    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" style="float:right" onclick="$('#alert_msg').fadeOut()"></span>
+</div>
+
+{% endif %}
+
+<div class="container" style="height:100%; height: 100%; width: 700px; padding: 70px;">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#signin" aria-controls="signin" role="tab" data-toggle="tab">登陆</a>
+        </li>
+        <li role="presentation">
+            <a href="#register" aria-controls="register" role="tab" data-toggle="tab">注册</a>
+        </li>
+
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content" style="border: solid; border-color: #ddd; padding: 10px;border-radius: 0 0 15px 15px;">
+        <div role="tabpanel" class="tab-pane active" id="signin">
+
+            <!-- 登陆tab -->
+            <form class="form-horizontal" name="signin" method="POST" action="http://127.0.0.1:3000/signin">
+                <div class="form-group">
+                    <label for="inputuser1" class="col-sm-2 control-label">用户名</label>
+                    <div class="col-sm-10">
+                        <input type="username" class="form-control" id="inputuser1" placeholder="用户名" name="username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword2" class="col-sm-2 control-label">密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="inputPassword2" placeholder="Password" name="password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> 记住我
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">登陆</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- 注册tap -->
+        <div role="tabpanel" class="tab-pane" id="register">
+            <form class="form-horizontal" name="register" method="POST" action="http://127.0.0.1:3000/register">
+                <div class="form-group">
+                    <label for="inputuser2" class="col-sm-2 control-label">用户名</label>
+                    <div class="col-sm-10">
+                        <input type="username" name="username" class="form-control" id="inputuser2" placeholder="用户名">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" name="pwd1" class="form-control" id="inputPassword3" placeholder="Password" oninput="checkform()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword4" class="col-sm-2 control-label">确认密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" name="pwd2" class="form-control" id="inputPassword4" placeholder="Password" oninput="checkform()">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">注册</button>
+                    </div>
+                </div>
+
+                <div class="alert alert-danger" role="alert" id="alert" hidden>你两次输入的密码不一致</div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<script>
+    function checkform() {
+        var pwd1 = $("#inputPassword3").val();
+        var pwd2 = $("#inputPassword4").val();
+        console.log('pwd1 is ' + pwd1 + ',pwd2 is ' + pwd2);
+        if (pwd1 !== pwd2) {
+            $("#alert").show();
+        } else {
+            $("#alert").hide();
+        }
+    }
+</script> {% endblock %}
