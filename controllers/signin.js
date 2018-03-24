@@ -13,7 +13,8 @@ let fn_stateCheck = async (ctx, next) => {
     let check_pra = [formData.username, formData.password]
     let check_result = await query(check_qry, check_pra)
     if ( Array.isArray(check_result) && check_result.length > 0) {
-        ctx.render('signin.html', {
+        ctx.render('index.html', {
+            title: 'Zixu Space Station',
             isLogin: true,
             user: formData.username
         })
