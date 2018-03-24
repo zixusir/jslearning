@@ -28,5 +28,5 @@ _需要深入了解nodejs的步机制，async与await搭配使用的方法_
 >>有了一种思路，首先封装mysql的操作，再用async,await的写法进行数据库操作。
 
 1.4 登陆状态的保持
-
-  
+需要的中间件
+koa 是一个中间件框架，本身并不能处理 session，在 koa 中处理 session 需要其他中间件的支持。本文用 koa-session-minimal 做 session 处理的中间件，其他处理 session 的中间件大同小异。

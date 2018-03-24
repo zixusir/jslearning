@@ -12,28 +12,12 @@ const mysql = require('mysql');
 
 const WebSocket = require('ws');
 
-//connect to mysql
-let mysqlConnect = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'userdata',
-    port: '3306'
-});
-
-mysqlConnect.connect( (err) => {
-    if (err) {
-        console.log('failed to connect to mysql!');
-    } else {
-        console.log('successed to connect to mysql!');
-    }
-});
-
-//creating a new koa app
-const app = new koa();
+const session = require('koa-session-minimal');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+//creating a new koa app
+const app = new koa();
 
 //log request url
 app.use(async (ctx, next) => {
@@ -71,7 +55,6 @@ app.use(async (ctx, next) => {
 
 let server = app.listen(3000);
 console.log('app started at port 3000');
-
 
 //parserUser funtion
 function parseUser(obj) {
