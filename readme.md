@@ -12,6 +12,7 @@ _问题：目前通过root账户无密码接入，存在安全隐患，后期需
 1.3 _编写前端页面_
 1.3.1 登陆
   通过POST提交username,password, 查询mysql数据库，如果找到用户则登陆，否则退回登陆页面signin.html
+  
 
 1.3.2 注册
   通过POST提交username,password, 前端页面完成对pwd1===pwd2的验证。后端通过mysql语句将用户信息插入数据表userp,成功定向registerok.html,失败后返回signin.html
