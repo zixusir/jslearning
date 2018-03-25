@@ -16,8 +16,10 @@ _问题：目前通过root账户无密码接入，存在安全隐患，后期需
 
 1.3.2 注册
   通过POST提交username,password, 前端页面完成对pwd1===pwd2的验证。后端通过mysql语句将用户信息插入数据表userp,成功定向registerok.html,失败后返回signin.html
+  注册以后自动登陆
 
-_问题：目前暂时没有考虑断线重连mysql的问题_
+_问题：目前暂时没有考虑断线重连mysql的问题_        ctx.session.username = null
+
 **现在卡在如何判断mysql语句是否执行成功上**
 找到了如何判断mysql执行状态的方法，主要问题还是在于nodejs的异步机制，以致query执行完毕以后，ctx已经返回，因此需要一个await.
 _需要深入了解nodejs的步机制，async与await搭配使用的方法_

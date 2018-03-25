@@ -25,8 +25,12 @@ module.exports = {
                 let query_str = 'INSERT INTO usernp (user,password) VALUES(?,?)'
                 let query_pra = [username, password]
                 let insert_result = await query(query_str, query_pra)
+                ctx.session.isLogin = true
+                ctx.session.username = username
                 ctx.render('registerok.html', {
                     user: username,
+                    isLogin: true,
+                    user: ctx.session.username
                 })
             }
         } catch (err) {

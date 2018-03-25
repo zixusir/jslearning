@@ -31,7 +31,23 @@ let fn_stateCheck = async (ctx, next) => {
     
 }
 
+let fn_signout = async (ctx, next) => {
+    if (ctx.session.isLogin === false) {
+        ctx.render('index.html', {
+            msg: true,
+            content: '你还没有登陆！'
+        })
+    } else {
+        ctx.render('index.html', {
+            isLogin: false,
+        })
+        ctx.session.isLogin = false
+        ctx.session.username = null
+    }
+}
+
 module.exports = {
     'GET /signin': fn_signin,
-    'POST /signin': fn_stateCheck
+    'POST /signin': fn_stateCheck,
+    'GET /signout': fn_signout
 }
