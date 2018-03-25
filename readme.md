@@ -39,3 +39,8 @@ koa 是一个中间件框架，本身并不能处理 session，在 koa 中处理
 2.1开发消息前端页面
 需要消息窗口，用户信息窗口，用户列表窗口，用户输入窗口
 2.2开发消息后端程序
+
+>>对于this指针的具体对象仍然存在很大的疑问？？？
+理解this对箭头函数和普通函数的区别[http://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0]
+websocket 的具体运作方式是什么
+每一次访问都记录了ctx.server = server这显然不太好

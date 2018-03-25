@@ -15,8 +15,5 @@ module.exports = {
             })
         }
         
-    },
-    'GET /message': async (ctx, next) => {
-        ctx.render('message.html');
     }
 };

@@ -1,21 +1,22 @@
-{% extends "base.html" %} {% block main %}>
+{% extends "base.html" %} {% block main %}
 <div class="container" id="content" style="width:800px; height:500px; background: #f3f3f3; margin:auto;">
     <div class="row" style="background-color:#d4e5ec">
         <div class="col-sm-8" style="height:500px; padding-left: 0;padding-right:0">
-            <div id="message" style="height:400px; border:solid;  border-color:blueviolet">
+            <div id="message" style="height:400px; border:solid;  border-color:blueviolet; padding-left: 10px; padding-top: 10px;">
                 here is message window
             </div>
             <!-- <form id="send-form"> -->
-            <div class="input-group" style="width: 100%; height: 100px; position:absolute; bottom:0;border:solid; border-color:blueviolet;">
-                <textarea type="text" id="send-message" class="form-control" style="height:100%"></textarea>
-                <div class="input-group-btn" style="height:100%">
-                    <button class="btn btn-default" id="helpBtn" style="height:100%">
-                        <span class="glyphicon glyphicon-question-sign"></span>
-                    </button>
-                    <button class="btn btn-default" type="submit" style="height:100%; background-color:#dfb5b7">Send</button>
-                    <!-- <input type="submit" id="send-button" style="width:10%" class="" value="send" /> -->
+            <form action="#">
+                <div class="input-group" style="width: 100%; height: 100px; position:absolute; bottom:0;border:solid; border-color:blueviolet;">
+                    <textarea type="text" id="send-message" class="form-control" style="height:100%"></textarea>
+                    <div class="input-group-btn" style="height:100%">
+                        <button class="btn btn-default" id="helpBtn" style="height:100%">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
+                        <button class="btn btn-default" type="submit" style="height:100%; background-color:#dfb5b7">Send</button>
+                    </div>
                 </div>
-            </div>
+            </form>
             <!-- </form> -->
         </div>
         <div class="col-sm-4" style="height:500px; border:solid; border-color:blueviolet">
@@ -43,11 +44,6 @@
 
         let ws = new WebSocket('ws://localhost:3000/test');
 
-        // // 打开WebSocket连接后立刻发送一条消息:
-        // ws.on('open', function () {
-        //     console.log(`[CLIENT] open()`);
-        //     ws.send('Hello!');
-        // });
         ws.onopen = () => {
             console.log(`[CLIENT] open`);
             ws.send('webSoket is working!');

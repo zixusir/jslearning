@@ -12,6 +12,8 @@ const mysql = require('mysql')
 
 const WebSocket = require('ws')
 
+const chatServer = require('./chat_server')
+
 const session = require('koa-session-minimal')
 
 const sessionMysqlStore = require('koa-mysql-session');
@@ -42,6 +44,11 @@ app.use(async (ctx, next) => {
     ctx.response.set('X-Response-Time', `${execTime}`)
 })
 
+app.use( async(ctx, next) => {
+    ctx.server = server
+    await next()
+})
+
 //static file support
 if (!isProduction) {
     let staticFiles = require('./static-files')
@@ -60,10 +67,6 @@ app.use(templating('views', {
 //add controller
 app.use(controller())
 
-app.use(async (ctx, next) => {
-    ctx.state.user = parseUser(ctx.cookies.get('name') || '')
-    await next()
-})
-
 let server = app.listen(3000)
+
 console.log('app started at port 3000')
