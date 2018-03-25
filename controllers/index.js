@@ -17,7 +17,6 @@ module.exports = {
         
     },
     'GET /message': async (ctx, next) => {
-        ctx.render('message.html', { });
-        console.log('message has been rendered!');
+        ctx.render('message.html');
     }
 };

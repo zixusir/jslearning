@@ -29,22 +29,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="http://127.0.0.1:3000">子胥</a>
+          <a class="navbar-brand" href="/">子胥</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li class="active">
-              <a href="../">HOME
+              <a href="/">HOME
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li>
-              <a href="../products">Products</a>
+              <a href="/products">Products</a>
             </li>
             <li>
-              <a href="../message">Message</a>
+              <a href="/message">Message</a>
             </li>
             <li>
               <a href="/note">Note</a>
@@ -53,9 +53,9 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               {% if isLogin %}
-              <a href="../user">{{user}}</a>
+              <a href="/user">{{user}}</a>
               {% else %}
-              <a href="../signin">登陆/注册</a>
+              <a href="/signin">登陆/注册</a>
               {% endif %}
             </li>
             <li class="dropdown">
@@ -87,9 +87,7 @@
       <!-- /.container-fluid -->
     </nav>
   </div>
-
   {% block main %}{% endblock %}
-  </div>
 </body>
 
 </html>
