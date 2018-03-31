@@ -69,4 +69,6 @@ app.use(controller())
 
 let server = app.listen(3000)
 
+app.wss = chatServer.createWebSocket(server)
+
 console.log('app started at port 3000')

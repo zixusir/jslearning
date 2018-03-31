@@ -7,7 +7,6 @@ module.exports = {
                 isLogin: true,
                 user: ctx.session.username
             })
-            chatServer.createWebSocket(ctx, ctx.server)
         } else {
             ctx.render('message.html', {
                 isLogin: false

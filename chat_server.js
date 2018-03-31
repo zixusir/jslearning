@@ -11,15 +11,14 @@ function createMsg(type, user, data) {
 
 }
 
-let createWebSocket = (ctx, server) => {
+let createWebSocket = (server) => {
     let wss = new WebSocketServer({
         server: server
     })
 
-    let user = ctx.session.username
-
+    let user = 'hello John'
     let onMessage = (message) => {
-        console.log(`message is ${message}`)
+        console.log(`server receive message ${message}`)
         if (message && message.trim()) {
             let msg = createMsg("msg", user, message.trim())
             wss.clients.forEach((client) => {

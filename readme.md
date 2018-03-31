@@ -12,6 +12,7 @@ _问题：目前通过root账户无密码接入，存在安全隐患，后期需
 1.3 _编写前端页面_
 1.3.1 登陆
   通过POST提交username,password, 查询mysql数据库，如果找到用户则登陆，否则退回登陆页面signin.html
+  登陆以后写cookie和session
   
 
 1.3.2 注册
@@ -39,8 +40,11 @@ koa 是一个中间件框架，本身并不能处理 session，在 koa 中处理
 2.1开发消息前端页面
 需要消息窗口，用户信息窗口，用户列表窗口，用户输入窗口
 2.2开发消息后端程序
-
 >>对于this指针的具体对象仍然存在很大的疑问？？？
-理解this对箭头函数和普通函数的区别[http://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0]
+[理解this对箭头函数和普通函数的区别](http://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0)
 websocket 的具体运作方式是什么
 每一次访问都记录了ctx.server = server这显然不太好
+2.3 基于vue开法消息前端程序
+>>问题：什么是preventDefault()
+vue的使用导致dom 的点击事件无法进入
+[保持聊天是scroll总是在最底部的方法](https://segmentfault.com/q/1010000005060643)
