@@ -10,9 +10,9 @@ const config = require('./config')
 
 const mysql = require('mysql')
 
-const WebSocket = require('ws')
+const io = require('socket.io')
 
-const chatServer = require('./chat_server')
+// const chatServer = require('./chat_server')
 
 const session = require('koa-session-minimal')
 
@@ -69,6 +69,13 @@ app.use(controller())
 
 let server = app.listen(3000)
 
-app.wss = chatServer.createWebSocket(server)
+let chat_server = io(server)
+
+chat_server.on('connection', (socket) => {
+    console.log('success in connectting')
+    socket.on('disconnection', () => {
+        console.log('a user leave')
+    })
+})
 
 console.log('app started at port 3000')
