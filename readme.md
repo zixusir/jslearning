@@ -48,3 +48,6 @@ websocket 的具体运作方式是什么
 >>问题：什么是preventDefault()
 vue的使用导致dom 的点击事件无法进入
 [保持聊天是scroll总是在最底部的方法](https://segmentfault.com/q/1010000005060643)
+
+2.4 我觉得需要自己总结一下webSocket的相关东西，这个还是很陌生，现在仅仅简单会用一点功能。
+https://segmentfault.com/a/1190000011538416

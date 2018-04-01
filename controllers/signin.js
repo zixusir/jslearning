@@ -2,7 +2,7 @@ const mysql = require('mysql')
 
 const { query } = require('../mysqlPromise')
 
-let fn_signin = async (ctx,next) => {
+let fn_signin = async (ctx, next) => {
     ctx.render("signin.html")
 }
 
@@ -12,9 +12,13 @@ let fn_stateCheck = async (ctx, next) => {
     let check_qry = `select * from usernp where user = ? and password = ? limit 1`
     let check_pra = [formData.username, formData.password]
     let check_result = await query(check_qry, check_pra)
-    if ( Array.isArray(check_result) && check_result.length > 0) {
-        ctx.session.isLogin = true,
+    if (Array.isArray(check_result) && check_result.length > 0) {
+        //set session
+        ctx.session.isLogin = true
         ctx.session.username = formData.username
+
+        //set cookie
+        ctx.cookies.set('username', formData.username)
         ctx.render('index.html', {
             title: 'Zixu Space Station',
             isLogin: true,
@@ -28,7 +32,7 @@ let fn_stateCheck = async (ctx, next) => {
         })
         console.log('login in failed')
     }
-    
+
 }
 
 let fn_signout = async (ctx, next) => {
