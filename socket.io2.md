@@ -147,3 +147,108 @@ var news = io
     socket.emit('item', { news: 'item' });
   });
 ```
+client(index.html)
+```html
+<script>
+  var chat = io.connect('http://localhost/chat')
+    , news = io.connect('http://localhost/news');
+  
+  chat.on('connect', function () {
+    chat.emit('hi!');
+  });
+  
+  news.on('news', function () {
+    news.emit('woot');
+  });
+</script>
+```
+
+###发送可失效消息
+有时某些消息可能会丢失。现在我们假设您要做一款显示关键字“bieber”的实时推送应用程序。
+
+如果某个客户端没有准备好接收消息（由于网络缓慢或其他问题，或者因为它们通过长轮询连接并处于请求 - 响应周期的中间），所以如果它没有收到所有与bieber相关的消息，应用程序可以不受影响。
+
+在这种情况下，您可能希望将这些消息作为可失效性消息发送。
+
+server
+```js
+var io = require('socket.io')(80);
+
+io.on('connection', function (socket) {
+  var tweets = setInterval(function () {
+    getBieberTweet(function (tweet) {
+      socket.volatile.emit('bieber tweet', tweet);
+    });
+  }, 100);
+
+  socket.on('disconnect', function () {
+    clearInterval(tweets);
+  });
+});
+```
+
+###发送和接收数据（确认）
+有时，您可能想得到在客户端收到信息后发出的一个反馈。
+
+要做到这一点，只需传递一个函数作为.send或.emit的最后一个参数即可。更重要的是，当您使用.emit时，确认由您完成，这意味着您也可以传递数据：
+
+server(app.js)
+```js
+var io = require('socket.io')(80);
+
+io.on('connection', function (socket) {
+  socket.on('ferret', function (name, fn) {
+    fn('woot');
+  });
+});
+```
+client(index.html)
+```html
+<script>
+  var socket = io(); // TIP: io() with no args does auto-discovery
+  socket.on('connect', function () { // TIP: you can avoid listening on `connect` and listen on events directly too!
+    socket.emit('ferret', 'tobi', function (data) {
+      console.log(data); // data will be 'woot'
+    });
+  });
+</script>
+```
+
+###广播消息
+要进行广播，只需添加一个广播标志来调用emit和send方法即可。广播意味着将消息发送给除启动socket以外的其他人。
+
+server
+```js
+var io = require('socket.io')(80);
+
+io.on('connection', function (socket) {
+  socket.broadcast.emit('user connected');
+});
+```
+
+###将其用作跨浏览器的WebSocket
+server(app.js)
+```js
+var io = require('socket.io')(80);
+
+io.on('connection', function (socket) {
+  socket.on('message', function () { });
+  socket.on('disconnect', function () { });
+});
+```
+
+client(index.html)
+```html
+<script>
+  var socket = io('http://localhost/');
+  socket.on('connect', function () {
+    socket.send('hi');
+
+    socket.on('message', function (msg) {
+      // my msg
+    });
+  });
+</script>
+```
+
+如果您不关心重新连接逻辑等，请查看[Engine.IO](https://github.com/socketio/engine.io)，它是Socket.IO使用的WebSocket语义传输层。

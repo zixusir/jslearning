@@ -24,7 +24,7 @@
         "mysql": "^2.15.0",
         "mz": "2.4.0",
         "nunjucks": "2.4.2",
-        "ws": "1.1.1",
+        "socket.io": "2.1.0",
         "koa-mysql-session": "0.0.2",
         "koa-session-minimal": "^3.0.3"
     }
