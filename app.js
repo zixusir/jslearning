@@ -71,10 +71,18 @@ let server = app.listen(3000)
 
 let chat_server = io(server)
 
-chat_server.on('connection', (socket) => {
+chat_server.on('connection', (socket) => {//chat_server是服务器端的socket，参数传递的socket是客户端发送过来的socket
     console.log('success in connectting')
-    socket.on('disconnection', () => {
+    socket.on('disconnect', () => {
         console.log('a user leave')
+    })
+    socket.on('message', (msg) => {
+        console.log(`server receive message:${msg}`)
+        chat_server.emit('message', {
+            type: 'msg',
+            content: msg.content,
+            user: msg.user
+        })
     })
 })
 

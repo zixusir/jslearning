@@ -39,6 +39,9 @@ koa 是一个中间件框架，本身并不能处理 session，在 koa 中处理
 ##2开发消息页面
 2.1开发消息前端页面
 需要消息窗口，用户信息窗口，用户列表窗口，用户输入窗口
+
+
+
 2.2开发消息后端程序
 >>对于this指针的具体对象仍然存在很大的疑问？？？
 [理解this对箭头函数和普通函数的区别](http://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0)
@@ -53,3 +56,33 @@ vue的使用导致dom 的点击事件无法进入
 https://segmentfault.com/a/1190000011538416
 
 2.5开发进行到今天，我准备换用socket.io重新尝试，也不是因为啥，主要是我刚刚认认真真读了socket.io的文档，或许比起ws来我更能操作些。
+
+2.6[js读写cookie的方法](http://www.cnblogs.com/Darren_code/archive/2011/11/24/Cookie.html)
+[cookie的认识](https://segmentfault.com/a/1190000004556040)
+```js
+写cookie 一定要谨慎对待option的域名和path选项，否则导致客服端读不了数据
+//JS操作cookies方法! 
+
+//写cookies 
+
+function setCookie(name,value) 
+{ 
+    var Days = 30; 
+    var exp = new Date(); 
+    exp.setTime(exp.getTime() + Days*24*60*60*1000); 
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString(); 
+} 
+
+//读取cookies 
+function getCookie(name) 
+{ 
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+ 
+    if(arr=document.cookie.match(reg))
+ 
+        return unescape(arr[2]); 
+    else 
+        return null; 
+} 
+```
+

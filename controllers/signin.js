@@ -18,7 +18,12 @@ let fn_stateCheck = async (ctx, next) => {
         ctx.session.username = formData.username
 
         //set cookie
-        ctx.cookies.set('username', formData.username)
+        ctx.cookies.set('username', formData.username, {
+            maxAge: 10 * 60 * 1000, // cookie有效时长
+            expires: new Date('2017-02-15'),  // cookie失效时间
+            httpOnly: false,  // 是否只用于http请求中获取
+            overwrite: false  // 是否允许重写
+          })
         ctx.render('index.html', {
             title: 'Zixu Space Station',
             isLogin: true,

@@ -1,6 +1,14 @@
-#messages{
-    overflow: auto;
-    background-color: #eee;
-    margin-bottom: 1em;
-    margin-right: 10px;
+/* message */
+#msgApp{
+    width:800px; 
+    height:500px; 
+    background: #f3f3f3; 
+    margin:auto;
+}
+#message{
+    height:350px;
+    padding-left: 20px; 
+    padding-top: 10px; 
+    overflow-x:hidden; 
+    overflow-y:scroll;
 }

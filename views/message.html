@@ -1,13 +1,21 @@
-{% extends "base.html" %} {% block main %}
-<div class="container" id="msgApp" style="width:800px; height:500px; background: #f3f3f3; margin:auto">
+{% extends "base.html" %} 
+
+{% block main %}
+<div class="container" id="msgApp" >
     <div class="row" style="background-color:#d4e5ec">
-        <div class="col-sm-9" style="height:500px; padding-left: 0; padding-right:0">
+        <div id="userInfo" class="col-sm-1">
+
+
+        </div>
+        <div id="msgMain" class="col-sm-8" style="height:500px; padding-left: 0; padding-right:0">
             <div class="panel panel-info">
                 <div class="panel-heading" style="height:50px;">Message</div>
-                <div class="panel-body" id="message" style="height:350px; padding-left: 10px; padding-top: 10px; overflow-x:hidden; overflow-y:scroll;">
+                <div class="panel-body" id="message">
                     <div v-for="data in msgData" class="row">
-                        <div class="col-xs-2" style="border-radius:10px; background:#f146c7" v-text="data.user"></div>
-                        <div class="col-xs-10" v-text="data.rec"></div>
+                        <div class="col-xs-1">
+                            <span style="border-radius:50%; background:#10d4d4; width:200px; height:200px;" v-text="data.user"></span>
+                        </div>
+                        <p class="col-xs-11" v-text="data.content"></p>
                     </div>
                 </div>
             </div>
@@ -20,7 +28,7 @@
             </div>
 
         </div>
-        <div class="col-sm-3" style="height:500px ">
+        <div id="userList" class="col-sm-3" style="height:500px ">
             here is user list window
         </div>
     </div>
@@ -28,26 +36,39 @@
 
 
 <script>
+
+    //写cookies 
+    function setCookie(name, value) {
+        var Days = 30;
+        var exp = new Date()
+        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString()
+    }
+
+    //读取cookies 
+    function getCookie(c_name) {
+        if (document.cookie.length > 0) {　　//先查询cookie是否为空，为空就return ""
+            c_start = document.cookie.indexOf(c_name + "=")　　//通过String对象的indexOf()来检查这个cookie是否存在，不存在就为 -1　　
+            if (c_start != -1) {
+                c_start = c_start + c_name.length + 1　　//最后这个+1其实就是表示"="号啦，这样就获取到了cookie值的开始位置
+                c_end = document.cookie.indexOf(";", c_start)　　//其实我刚看见indexOf()第二个参数的时候猛然有点晕，后来想起来表示指定的开始索引的位置...这句是为了得到值的结束位置。因为需要考虑是否是最后一项，所以通过";"号是否存在来判断
+                if (c_end == -1) c_end = document.cookie.length
+                console.log(document.cookie.substring(c_start, c_end))
+                return unescape(document.cookie.substring(c_start, c_end))　　//通过substring()得到了值。想了解unescape()得先知道escape()是做什么的，都是很重要的基础，想了解的可以搜索下，在文章结尾处也会进行讲解cookie编码细节
+            }
+        }
+        return ''
+    }
+
     $(function () {
-        let ws = new WebSocket('ws://localhost:3000/test')
+        var client = io()//如果url不指定，将默认连接当前的页面的url
 
-        ws.onopen = () => {
-            console.log(`[CLIENT] open`)
-            ws.send('client is working! how about server')
-        }
+        client.on('message', (msg) => {
+            console.log('client receive message' + msg)
+            msgApp.msgData.push(msg)
+        })
 
-        ws.onmessage = (event) => {
-            var message = event.data
-            console.log('client receive message' + message)
-            msgContent = JSON.parse(message)
-            msgApp.msgData.push({
-                type: msgContent.type,
-                rec: msgContent.data,
-                user: msgContent.user
-            })
-            var div = document.getElementById("message")
-            div.scrollTop = div.scrollHeight
-        }
+        var username = getCookie('username') || 'undefined'
 
         var msgApp = new Vue({
             el: '#msgApp',
@@ -60,13 +81,15 @@
             },
             methods: {
                 "sendMsg": function () {
-                    ws.send(this.inputMsg)
+                    client.emit('message', {
+                        type: 'msg',
+                        user: username,
+                        content: this.inputMsg
+                    })
                     this.inputMsg = ''
-                },
-                "logMsg": function () {
-                    console.log(this.msgData)
                 }
             }
         })
+
     })
 </script> {% endblock %}
