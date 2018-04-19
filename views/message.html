@@ -1,39 +1,58 @@
-{% extends "base.html" %} 
+{% extends "base.html" %} {% block main %}
 
-{% block main %}
-<div class="container" id="msgApp" >
-    <div class="row" style="background-color:#d4e5ec">
-        <div id="userInfo" class="col-sm-1">
-
-
-        </div>
-        <div id="msgMain" class="col-sm-8" style="height:500px; padding-left: 0; padding-right:0">
-            <div class="panel panel-info">
-                <div class="panel-heading" style="height:50px;">Message</div>
-                <div class="panel-body" id="message">
-                    <div v-for="data in msgData" class="row">
-                        <div class="col-xs-1">
-                            <span style="border-radius:50%; background:#10d4d4; width:200px; height:200px;" v-text="data.user"></span>
-                        </div>
-                        <p class="col-xs-11" v-text="data.content"></p>
-                    </div>
-                </div>
+<div id="msgApp" class="container row">
+    <div id="userInfo" class="col-sm-1">
+        <div id="userLogo">
+            <div>
+                <span class="glyphicon glyphicon-user"></span>
             </div>
-
-            <div class="input-group" style="width: 100%; height: 100px; position:absolute; bottom:0">
-                <textarea class="form-control" style="height:100%" v-model="inputMsg"></textarea>
-                <div class="input-group-btn" style="height:100%">
-                    <button class="btn btn-default" style="height:100%" v-on:click="sendMsg()">Send</button>
-                </div>
-            </div>
-
         </div>
-        <div id="userList" class="col-sm-3" style="height:500px ">
-            here is user list window
+        <div id="msgRoom">
+            <div>
+                <span class="glyphicon glyphicon-envelope"></span>
+            </div>
+        </div>
+        <div id="structure">
+            <div>
+                <span class="glyphicon glyphicon-heart"></span>
+            </div>
+        </div>
+        <div id="setting">
+            <div>
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
         </div>
     </div>
-</div>
+    <div id="roomList" class="col-sm-3 panel panel-info" style="height:500px ">
+        <div v-for="user in friendsList" v-on:click="changeTo">
+            <div v-text="user" ></div>
+        </div>
+    </div>
+    <div id="msgMain" class="col-sm-8" style="height:500px; padding-left: 0; padding-right:0">
+        <div class="panel panel-info">
+            <div class="panel-heading" style="height:50px; background-color:#f2ede6">Message</div>
+            <div class="panel-body" id="message">
+                <div v-for="data in msgData" class="row">
+                    <div class="col-xs-1">
+                        <div id="eachUser">
+                            <span v-text="data.user"></span>
+                        </div>
+                    </div>
+                    <p class="col-xs-11" v-text="data.content"></p>
+                </div>
+            </div>
+        </div>
 
+        <div class="input-group" style="width: 100%; height: 100px; position:absolute; bottom:0">
+            <textarea class="form-control" style="height:100%" v-model="inputMsg"></textarea>
+            <div class="input-group-btn" style="height:100%">
+                <button class="btn btn-default" style="height:100%" v-on:click="sendMsg()">Send</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
 
 <script>
 
@@ -61,34 +80,71 @@
     }
 
     $(function () {
+        var username = getCookie('username') || 'undefined'
         var client = io()//如果url不指定，将默认连接当前的页面的url
 
-        client.on('message', (msg) => {
+        //模拟database存储的用户信息。
+        var database = {
+            friendsList: ['1', 'abc','111']
+        }
+
+        client.on('connect', () => {
+            client.emit('getOnline', {
+                //发送登陆服务器的消息，在服务器端将用户的socket连接写入socketsPool
+                username: username
+            })
+        })
+
+        client.on('to' + username, (msg) => {
+            //侦听一个toUsername事件，表示有消息发到用户端
             console.log('client receive message' + msg)
             msgApp.msgData.push(msg)
         })
 
-        var username = getCookie('username') || 'undefined'
-
         var msgApp = new Vue({
             el: '#msgApp',
             data: {
+                selectedUser: 'default',
+                userN: '',
                 msgData: [],
-                inputMsg: ''
+                inputMsg: '',
+                friendsList: ['默认1', '默认2']
             },
             created: function () {
                 console.log('vue is working')
+                this.userN = username.split("")[0]
+                this.friendsList = database.friendsList
+            },
+            watch: {
+                'msgData': 'scrollToBottom'
             },
             methods: {
-                "sendMsg": function () {
-                    client.emit('message', {
-                        type: 'msg',
-                        user: username,
+                sendMsg: function () {
+                    //发送消息
+                    var msg = {
+                        toUser: this.selectedUser,
+                        fromUser: username,
                         content: this.inputMsg
-                    })
+                    }
+                    client.emit('message', msg)
+                    console.log(msg)
                     this.inputMsg = ''
+                },
+                scrollToBottom: function () {
+                    //保持消息页面始终在最底端
+                    this.$nextTick(() => {
+                        var el_height = $('#message')[0].scrollHeight
+                        console.log($('#message')[0].scrollHeight)
+                        $('#message').scrollTop(el_height)
+                    })
+                },
+                changeTo: function(event){
+                    //改变去信用户toUser
+                    this.selectedUser = event.currentTarget.children[0].innerHTML
+                    console.log(this.selectedUser)
                 }
-            }
+            },
+
         })
 
     })

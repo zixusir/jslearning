@@ -44,7 +44,7 @@ app.use(async (ctx, next) => {
     ctx.response.set('X-Response-Time', `${execTime}`)
 })
 
-app.use( async(ctx, next) => {
+app.use(async (ctx, next) => {
     ctx.server = server
     await next()
 })
@@ -71,18 +71,37 @@ let server = app.listen(3000)
 
 let chat_server = io(server)
 
+let socketsPool = {}//来自各个客服端的socket连接池
+
 chat_server.on('connection', (socket) => {//chat_server是服务器端的socket，参数传递的socket是客户端发送过来的socket
     console.log('success in connectting')
-    socket.on('disconnect', () => {
-        console.log('a user leave')
-    })
-    socket.on('message', (msg) => {
-        console.log(`server receive message:${msg}`)
-        chat_server.emit('message', {
-            type: 'msg',
-            content: msg.content,
-            user: msg.user
+    var fromUser = {}
+
+    socket.on('getOnline', function (msg) {
+        //监听用户连接后的用户信息
+        if(!socketsPool.hasOwnProperty(msg.username)) {
+            socketsPool[msg.username] = socket//将来自username的socket存入socketsPool
+            fromUser = msg.username
+            console.log('用户'+msg.username+'已存入')
+        }
+
+        socket.on('message', function (msg) {
+            console.log(`server receive message:${msg}`)
+            //侦听来自客服端的消息
+            if (socketsPool[msg.toUser]) {
+                socketsPool[msg.toUser].emit('to' + msg.toUser, msg)
+            } else {
+                socketsPool[msg.fromUser].emit('to' + msg.fromUser, {
+                    fromUser: msg.toUser,
+                    toUser: msg.fromUser,
+                    content: msg.toUser + '未上线'
+                })
+            }
         })
+    })
+
+    socket.on('disconnect', function() {
+        delete socketsPool[fromUser]
     })
 })
 

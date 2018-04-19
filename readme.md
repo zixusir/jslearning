@@ -86,3 +86,44 @@ function getCookie(name)
 } 
 ```
 
+##3解决bootstrap navbar不响应的问题
+[参考连接](https://stackoverflow.com/questions/16785264/jquery-syntax-error)
+
+可能存在的问题：
+1.jqery和boostrap 两个库的引用先后顺序不对
+2.没有对标签进行初始化
+3.无法跳转到外链的问题
+
+##4解决scroll无法自动滚到底部的问题
+```js
+client.on('message', (msg) => {
+    console.log('client receive message' + msg)
+    msgApp.msgData.push(msg)
+    var el_height = $('#message')[0].scrollHeight
+    console.log($('#message')[0].scrollHeight)
+    $('#message').scrollTop( el_height)
+})
+```
+这种做法有一个缺陷，就是vue的渲染是在scroll改变以前，这个缺陷还挺头疼。
+
+更好的做法：
+```js
+watch: {
+    'msgData': 'scrollToBottom'
+},
+methods: {
+    
+    scrollToBottom: function () {
+        this.$nextTick(() => {
+            var el_height = $('#message')[0].scrollHeight
+            console.log($('#message')[0].scrollHeight)
+            $('#message').scrollTop(el_height)
+        })
+    }
+}
+```
+在vue里添加一个waterer,然后给他注册一个回调函数，写在methods里面。
+
+##多聊天室的实现
+[参考](http://blog.hugzh.com/2016/01/05/socket.io%E6%90%AD%E5%BB%BA%E5%A4%9A%E8%81%8A%E5%A4%A9%E5%AE%A4/)
+更好的做法，利用一个socketsPool保存每一个连接的socket,通过管理这个socektsPool来实现多聊天室，实现一对一，一对多的通信。

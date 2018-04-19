@@ -1,14 +1,82 @@
 /* message */
+/* 配色主题：
+*/
+.color{
+color:#31353d;
+color:#383e59;
+color:#94a6bf;
+color:#f2ede6;
+color:#bda392;
+}
+body{
+    height: 100%;
+}
 #msgApp{
     width:800px; 
     height:500px; 
-    background: #f3f3f3; 
+    /* background: #f2ede6;  */
     margin:auto;
+    border-width: 1px;
+}
+#userInfo{
+    padding: 10px;
+    background-color:#31353d;
+    height: 100%;
+    border-width: 1px;
+}
+#userInfo div{
+    color:white;
+    width:100%;
+    text-align: center;
+}
+#userInfo div div{
+    width:100%; 
+    height:0;
+    padding-bottom: 100%;
+}
+#userInfo div div span{
+    display: -webkit-inline-box;
+    margin-top: 50%;
+    transform: translate(0,-50%);
+}
+#userName{
+    border-radius: 50%;
+    background-color: #bda392;
+}
+#setting{
+    bottom: 10px;
+    position: absolute;
+    margin-left: -10px;
 }
 #message{
     height:350px;
     padding-left: 20px; 
     padding-top: 10px; 
+    padding-bottom: 10px;
     overflow-x:hidden; 
     overflow-y:scroll;
+    border-width: 1px;
+}
+
+#eachUser{
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+
+}
+#roomList{
+    padding-left: 0;
+    padding-right: 0;
+}
+#roomList div{
+    padding-top: 5px;
+    
+}
+#roomList div div{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #bce8f1;
 }
