@@ -10,7 +10,7 @@ let mysqlConnect = mysql.createPool({
     port: '3306'
 })
 
-let query = function (sql, values) {
+let queryWithVal = function (sql, values) {
     return new Promise((resolve, reject) => {
         mysqlConnect.getConnection(function (err, connection) {
             if (err) {
@@ -29,4 +29,23 @@ let query = function (sql, values) {
     })
 }
 
-module.exports = { query };
+let query = function (sql) {
+    return new Promise((resolve, reject) => {
+        mysqlConnect.getConnection(function (err, connection) {
+            if (err) {
+                reject(err)
+            } else {
+                connection.query(sql, (err, rows) => {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        resolve(rows)
+                    }
+                    connection.release()
+                })
+            }
+        })
+    })
+}
+
+module.exports = { query, queryWithVal };

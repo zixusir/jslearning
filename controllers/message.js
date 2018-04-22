@@ -11,6 +11,5 @@ module.exports = {
                 content: '要使用聊天功能，首先需要登陆^-^'
             })
         }
-
     }
 }

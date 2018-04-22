@@ -24,29 +24,25 @@
         </div>
     </div>
     <div id="roomList" class="col-sm-3 panel panel-info" style="height:500px ">
-        <div v-for="user in friendsList" v-on:click="changeTo">
-            <div v-text="user" ></div>
+        <div v-for="each in friendsList" v-on:click="changeTo">
+            <div v-text="each.user"></div>
         </div>
     </div>
     <div id="msgMain" class="col-sm-8" style="height:500px; padding-left: 0; padding-right:0">
         <div class="panel panel-info">
             <div class="panel-heading" style="height:50px; background-color:#f2ede6">Message</div>
             <div class="panel-body" id="message">
-                <div v-for="data in msgData" class="row">
-                    <div class="col-xs-1">
-                        <div id="eachUser">
-                            <span v-text="data.user"></span>
-                        </div>
-                    </div>
-                    <p class="col-xs-11" v-text="data.content"></p>
+                <div v-for="item in msgData" class="row">
+                    <my-sentmsg v-if="item.fromUser === userN" :pardata="item"></my-sentmsg>
+                    <my-getmsg v-else :pardata="item"></my-getmsg>
                 </div>
             </div>
         </div>
 
-        <div class="input-group" style="width: 100%; height: 100px; position:absolute; bottom:0">
+        <div class="input-group" style="width: 100%; height: 100px; position:absolute; bottom:0" v-on:keyup.enter="sendMsg">
             <textarea class="form-control" style="height:100%" v-model="inputMsg"></textarea>
             <div class="input-group-btn" style="height:100%">
-                <button class="btn btn-default" style="height:100%" v-on:click="sendMsg()">Send</button>
+                <button class="btn btn-default" style="height:100%" v-on:click="sendMsg">Send</button>
             </div>
         </div>
 
@@ -58,7 +54,7 @@
 
     //写cookies 
     function setCookie(name, value) {
-        var Days = 30;
+        var Days = 1;
         var exp = new Date()
         exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
         document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString()
@@ -85,7 +81,7 @@
 
         //模拟database存储的用户信息。
         var database = {
-            friendsList: ['1', 'abc','111']
+            friendsList: ['1', 'abc', '111']
         }
 
         client.on('connect', () => {
@@ -101,6 +97,36 @@
             msgApp.msgData.push(msg)
         })
 
+        var getmsg = {
+            props: ['pardata'],
+            template:
+                '<div style="margin-top:10px;">\
+                    <div class="col-xs-1" style="padding-top:5px; padding-bottom: 5px;">\
+                        <div id="eachUser">\
+                            <div v-text="pardata.fromUser">123</div>\
+                        </div>\
+                    </div>\
+                    <div class="col-xs-11" style="padding-right:15px; padding-left: 0px; ">\
+                        <div class="greencomment" v-text="pardata.content">aaa</div>\
+                    </div>\
+                </div>'
+        }
+
+        var sentmsg = {
+            props: ['pardata'],
+            template:
+                '<div style=" margin-top:10px;">\
+                    <div class="col-xs-11" style="padding-right:0px; padding-left: 15px;">\
+                        <div class="comment" v-text="pardata.content" style="text-align: right;">aaa</div>\
+                    </div>\
+                    <div class="col-xs-1" style="padding-top:5px; padding-bottom: 5px;">\
+                        <div id="eachUser">\
+                            <div v-text="pardata.fromUser">123</div>\
+                        </div>\
+                    </div>\
+                </div>'
+        }
+
         var msgApp = new Vue({
             el: '#msgApp',
             data: {
@@ -110,10 +136,21 @@
                 inputMsg: '',
                 friendsList: ['默认1', '默认2']
             },
+            components: {
+                'my-getmsg': getmsg,
+                'my-sentmsg': sentmsg
+            },
             created: function () {
                 console.log('vue is working')
-                this.userN = username.split("")[0]
+                this.userN = username
                 this.friendsList = database.friendsList
+                axios.get('/api/userlist').then(
+                    (response) => {
+                        console.log(response.data.content)
+                        this.friendsList = response.data.content
+                        this.selectedUser = this.friendsList[0].user
+                    }
+                )
             },
             watch: {
                 'msgData': 'scrollToBottom'
@@ -127,24 +164,22 @@
                         content: this.inputMsg
                     }
                     client.emit('message', msg)
-                    console.log(msg)
+                    this.msgData.push(msg)
                     this.inputMsg = ''
                 },
                 scrollToBottom: function () {
                     //保持消息页面始终在最底端
                     this.$nextTick(() => {
                         var el_height = $('#message')[0].scrollHeight
-                        console.log($('#message')[0].scrollHeight)
                         $('#message').scrollTop(el_height)
                     })
                 },
-                changeTo: function(event){
+                changeTo: function (event) {
                     //改变去信用户toUser
                     this.selectedUser = event.currentTarget.children[0].innerHTML
                     console.log(this.selectedUser)
                 }
             },
-
         })
 
     })

@@ -20,3 +20,5 @@ const io = new Server();
 ```
 
 传递给socket.io的选项总是相同地传递给创建的engine.io服务器。 你可以参考engin.io的相关设置[选项](https://github.com/socketio/engine.io#methods-1)
+
+在这些选项中：

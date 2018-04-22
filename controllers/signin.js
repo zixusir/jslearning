@@ -1,6 +1,6 @@
 const mysql = require('mysql')
 
-const { query } = require('../mysqlPromise')
+const { query, queryWithVal } = require('../mysqlPromise')
 
 let fn_signin = async (ctx, next) => {
     ctx.render("signin.html")
@@ -11,7 +11,7 @@ let fn_stateCheck = async (ctx, next) => {
     let formData = ctx.request.body
     let check_qry = `select * from usernp where user = ? and password = ? limit 1`
     let check_pra = [formData.username, formData.password]
-    let check_result = await query(check_qry, check_pra)
+    let check_result = await queryWithVal(check_qry, check_pra)
     if (Array.isArray(check_result) && check_result.length > 0) {
         //set session
         ctx.session.isLogin = true
@@ -19,7 +19,7 @@ let fn_stateCheck = async (ctx, next) => {
 
         //set cookie
         ctx.cookies.set('username', formData.username, {
-            maxAge: 10 * 60 * 1000, // cookie有效时长
+            maxAge: 24 * 10 * 60 * 1000, // cookie有效时长24小时
             expires: new Date('2017-02-15'),  // cookie失效时间
             httpOnly: false,  // 是否只用于http请求中获取
             overwrite: false  // 是否允许重写
