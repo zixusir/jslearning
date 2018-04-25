@@ -24,9 +24,9 @@
         </div>
     </div>
     <div id="roomList" class="col-sm-3 panel panel-info" style="height:500px ">
-        <div v-for="each in friendsList" v-on:click="changeTo">
-            <div v-text="each.user"></div>
-        </div>
+        <select multiple>
+            <option v-for="each in friendsList" v-on:click="changeTo" :value = "each.user" v-text="each.user"></option>
+        </select>
     </div>
     <div id="msgMain" class="col-sm-8" style="height:500px; padding-left: 0; padding-right:0">
         <div class="panel panel-info">
@@ -176,7 +176,7 @@
                 },
                 changeTo: function (event) {
                     //改变去信用户toUser
-                    this.selectedUser = event.currentTarget.children[0].innerHTML
+                    this.selectedUser = event.currentTarget.innerHTML
                     console.log(this.selectedUser)
                 }
             },

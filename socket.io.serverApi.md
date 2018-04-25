@@ -22,3 +22,25 @@ const io = new Server();
 传递给socket.io的选项总是相同地传递给创建的engine.io服务器。 你可以参考engin.io的相关设置[选项](https://github.com/socketio/engine.io#methods-1)
 
 在这些选项中：
+.pingTimeout（Number）：没有pong数据包考虑多少毫秒后关闭连接（60000）
+.pingInterval（Number）：在发送新的ping数据包之前多少ms（25000）
+
+在客户端知道服务器不再可用之前，这两个参数将影响延迟。例如，如果由于网络问题导致基础TCP连接未正确关闭，则客户端可能必须在获取断开连接事件之前等待pingTimeout + pingInterval毫秒。
+
+注意：顺序很重要。默认情况下，首先建立一个长轮询连接，如果可能的话，然后升级到WebSocket。使用['websocket']意味着如果无法打开WebSocket连接，则不会有后备。
+
+```js
+const server = require('http').createServer();
+
+const io = require('socket.io')(server, {
+  path: '/test',
+  serveClient: false,
+  // below are engine.IO options
+  pingInterval: 10000,
+  pingTimeout: 5000,
+  cookie: false
+});
+
+server.listen(3000);
+```
+new Server（port[，选项]）端口（号码）要监听的端口（将创建一个新的http.Server）选项（对象）

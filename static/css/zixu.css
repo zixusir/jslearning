@@ -120,3 +120,7 @@ body{
     border-color:  transparent #46f873 transparent transparent ;
     font-size: 0;
 }
+select{
+    width: 100%;
+    height: 500px;
+}
