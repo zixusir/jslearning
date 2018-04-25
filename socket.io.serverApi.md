@@ -43,4 +43,21 @@ const io = require('socket.io')(server, {
 
 server.listen(3000);
 ```
-new Server（port[，选项]）端口（号码）要监听的端口（将创建一个新的http.Server）选项（对象）
+new Server(port[,options])
+port（数字）要监听的端口（将创建一个新的http.Server）
+options（对象）
+
+请参阅[上文的可用选项](https://socket.io/docs/server-api/#new-server-httpserver-options)
+
+```js
+const server = require('http').createServer();
+
+const io = require('socket.io')(3000, {
+  path: '/test',
+  serveClient: false,
+  // below are engine.IO options
+  pingInterval: 10000,
+  pingTimeout: 5000,
+  cookie: false
+});
+```
